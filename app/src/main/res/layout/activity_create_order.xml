@@ -32,9 +32,31 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="16dp" />
 
+    <Spinner
+        android:id="@+id/site_spinner"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="104dp"
+        android:background="@drawable/spinner_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.639"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <Spinner
+        android:id="@+id/supplier_spinner"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/spinner_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.639"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/site_spinner" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_createOrder"
-        android:layout_width="383dp"
+        android:layout_width="385dp"
         android:layout_height="448dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,4 +64,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_order_btn"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Site: "
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/site_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/site_spinner"
+        app:layout_constraintTop_toTopOf="@+id/site_spinner" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text="Supplier: "
+        app:layout_constraintBottom_toBottomOf="@+id/supplier_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/supplier_spinner"
+        app:layout_constraintTop_toTopOf="@+id/supplier_spinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>

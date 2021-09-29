@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
     List<String> description;
     List<String> measurement;
     List<Double> price;
+
 
     public CreateOrderAdapter(Context ct, List<String> id, List<String> supplierID, List<String> name,  List<String> description,  List<String> measurement,  List<Double> price){
         this.context = ct;
@@ -51,7 +53,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
         holder.name.setText(name.get(position));
         holder.description.setText(description.get(position));
         holder.price.setText(price.get(position).toString());
-        holder.name.setText(name.get(position));
+
 
 
     }
