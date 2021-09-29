@@ -20,6 +20,9 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
 
     Context context;
     List<String> id;
+    List<String> site_ID;
+    List<String> supplier_address;
+    List<String> site_address;
     List<String> supplierID;
     List<String> name;
     List<String> description;
@@ -53,7 +56,6 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
         holder.name.setText(name.get(position));
         holder.description.setText(description.get(position));
         holder.price.setText(price.get(position).toString());
-
 
 
     }
