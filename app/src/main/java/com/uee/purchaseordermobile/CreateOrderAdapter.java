@@ -5,6 +5,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,9 +23,9 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
     List<String> name;
     List<String> description;
     List<String> measurement;
-    List<Float> price;
+    List<Double> price;
 
-    public CreateOrderAdapter(Context ct,   List<String> id, List<String> supplierID, List<String> name,  List<String> description,  List<String> measurement,  List<Float> price){
+    public CreateOrderAdapter(Context ct, List<String> id, List<String> supplierID, List<String> name,  List<String> description,  List<String> measurement,  List<Double> price){
         this.context = ct;
         this.id = id;
         this.supplierID = supplierID;
@@ -36,13 +40,18 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_card_view, parent, false);
+
         return new ViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        holder.name.setText(name.get(position));
+        holder.description.setText(description.get(position));
+        holder.price.setText(price.get(position).toString());
+        holder.name.setText(name.get(position));
 
 
     }
@@ -54,11 +63,18 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-
+        TextView name, description, price;
+        EditText quantity;
+        CheckBox select;
 
         public ViewHolder(@NonNull View items){
             super(items);
 
+            name = items.findViewById(R.id.itemCard_name);
+            description = items.findViewById(R.id.itemCard_description);
+            price = items.findViewById(R.id.itemCard_price);
+            quantity = items.findViewById(R.id.itemCard_input_quantity);
+            select = items.findViewById(R.id.itemCard_checkBox);
         }
 
     }
