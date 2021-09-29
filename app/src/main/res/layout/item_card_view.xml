@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:id="@+id/card_pertanyaan"
+    android:outlineSpotShadowColor="@color/dark_grey"
+    android:outlineAmbientShadowColor="@color/dark_grey"
+    card_view:cardElevation="15dp"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="8dp"
+    card_view:contentPadding="10dp"
+    android:foreground="?selectableItemBackground"
+    android:clickable="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+
+        <TextView
+            android:id="@+id/itemCard_name"
+            android:layout_width="363dp"
+            android:layout_height="26dp"
+            android:text="TextView"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemCard_description"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="2dp"
+            android:text="TextView"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/itemCard_name" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="64dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="4dp"
+            android:text="Unit Price: "
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/itemCard_description" />
+
+        <TextView
+            android:id="@+id/itemCard_price"
+            android:layout_width="64dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
+            android:text="1000.00"
+            card_view:layout_constraintStart_toEndOf="@+id/textView4"
+            card_view:layout_constraintTop_toBottomOf="@+id/itemCard_description" />
+
+        <EditText
+            android:id="@+id/itemCard_input_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:hint="Enter quantity needed"
+            android:inputType="numberPassword"
+            android:textSize="12dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <CheckBox
+            android:id="@+id/itemCard_checkBox"
+            android:layout_width="85dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:text="Select"
+            card_view:layout_constraintBottom_toBottomOf="@+id/itemCard_input_quantity"
+            card_view:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

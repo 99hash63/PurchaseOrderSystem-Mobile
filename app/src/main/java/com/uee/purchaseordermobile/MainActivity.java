@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         //check if user is already logged in
         if (fAuth.getCurrentUser() != null){
-//            startActivity(new Intent(getApplicationContext(), PurchaseOrder.class));
+            startActivity(new Intent(getApplicationContext(), CreateOrder.class));
         }
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -70,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-//                            startActivity(new Intent(getApplicationContext(), PurchaseOrder.class));
-                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), CreateOrder.class));
                         }
                         else {
                             Toast.makeText(MainActivity.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
