@@ -60,6 +60,11 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
 
     }
 
+    public void getItems(){
+
+    }
+
+
     @Override
     public int getItemCount() {
         return id.size();
@@ -68,7 +73,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView name, description, price;
-        EditText quantity;
+        EditText quantity,requiredDate,comments;
         CheckBox select;
 
         public ViewHolder(@NonNull View items){
@@ -79,6 +84,8 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
             price = items.findViewById(R.id.itemCard_price);
             quantity = items.findViewById(R.id.itemCard_input_quantity);
             select = items.findViewById(R.id.itemCard_checkBox);
+            requiredDate = items.findViewById(R.id.requiredDate_get);
+            comments = items.findViewById(R.id.comment_get);
         }
 
     }

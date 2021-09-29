@@ -1,5 +1,6 @@
 package com.uee.purchaseordermobile;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,20 +10,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class CreateOrder extends AppCompatActivity {
@@ -54,7 +66,10 @@ public class CreateOrder extends AppCompatActivity {
 
     String userID;
 
-    EditText requiredDate;
+    EditText requiredDate, comments;
+
+    Button release,cancel;
+
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -68,6 +83,9 @@ public class CreateOrder extends AppCompatActivity {
         sitespinner=(Spinner)findViewById(R.id.site_spinner);
         supplierspinner=(Spinner)findViewById(R.id.supplier_spinner);
         requiredDate = (EditText) findViewById(R.id.requiredDate_get);
+        comments = (EditText) findViewById(R.id.comment_get);
+        release = findViewById(R.id.releaseOrder_btn);
+        cancel = findViewById(R.id.cancelOrder_btn);
 
         //item data
         itemId = new ArrayList<>();
@@ -194,6 +212,88 @@ public class CreateOrder extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        release.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                double totalPrice = 0;
+
+                ArrayList<Map> docArray = new ArrayList<>();
+
+
+
+                for (int i = 0; i < recyclerView.getAdapter().getItemCount(); i++) {
+
+                    View view = recyclerView.getChildAt(i);
+                    CheckBox checkBox = (CheckBox) view.findViewById(R.id.itemCard_checkBox);
+                    EditText quantity = (EditText) view.findViewById(R.id.itemCard_input_quantity);
+                    int quantityValue = Integer.parseInt(quantity.getText().toString());
+
+
+                    if(checkBox.isChecked()){
+
+                        Map<String, Object> docMap = new HashMap<>();
+                        docMap.put("item_id",itemId.get(i));
+                        docMap.put("price",price.get(i));
+                        docMap.put("quantity",quantityValue);
+                        docArray.add(docMap);
+
+                        totalPrice = totalPrice + price.get(i) * quantityValue;
+
+                    }
+
+                }
+                //get site and supplier array position
+                int selectedSitePosition = sitespinner.getSelectedItemPosition();
+                int selectedSupplierPosition =supplierspinner.getSelectedItemPosition();
+
+                //get current date
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                String formattedDate = df.format(c);
+
+                //preparing order data to be pass to Database
+                Map<String, Object> OrderData = new HashMap<>();
+                OrderData.put("site_ID", sitesID.get(selectedSitePosition));
+                OrderData.put("SM_ID", userID);
+                OrderData.put("supplierID", supplier_ID.get(selectedSupplierPosition));
+                OrderData.put("supplier_address", supplierAddress.get(selectedSupplierPosition));
+                OrderData.put("site_address", sitesAddress.get(selectedSitePosition));
+                OrderData.put("Purchase_date", formattedDate);
+                OrderData.put("Required_date", requiredDate.getText().toString());
+                OrderData.put("order_status", "Pending Approval");
+                OrderData.put("level", "Pending Approval");
+                OrderData.put("total_price", totalPrice);
+                OrderData.put("comments", comments.getText().toString());
+                OrderData.put("items",docArray);
+
+
+                db.collection("order")
+                        .add(OrderData)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
     }
 

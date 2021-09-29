@@ -69,8 +69,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_createOrder"
-        android:layout_width="385dp"
-        android:layout_height="402dp"
+        android:layout_width="match_parent"
+        android:layout_height="355dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
@@ -149,6 +149,29 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="30dp" />
+
+    <Button
+        android:id="@+id/releaseOrder_btn"
+        android:layout_width="106dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:text="Release"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/comment_get"
+        app:layout_constraintTop_toBottomOf="@+id/comment_get" />
+
+    <Button
+        android:id="@+id/cancelOrder_btn"
+        android:layout_width="106dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:textAllCaps="false"
+        android:layout_marginEnd="5dp"
+        android:text="Cancel"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/releaseOrder_btn"
+        app:layout_constraintTop_toBottomOf="@+id/comment_get" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
