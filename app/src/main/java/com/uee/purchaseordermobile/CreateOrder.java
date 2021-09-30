@@ -72,7 +72,7 @@ public class CreateOrder extends AppCompatActivity {
 
     EditText requiredDate, comments;
 
-    Button release,cancel;
+    Button release;
 
     TextView orderNoDisplay;
 
@@ -116,7 +116,7 @@ public class CreateOrder extends AppCompatActivity {
         comments = (EditText) findViewById(R.id.comment_get);
         release = findViewById(R.id.releaseOrder_btn);
         orderNoDisplay = findViewById(R.id.orderNoDisplay);
-        cancel = findViewById(R.id.cancelOrder_btn);
+
 
         //item data
         itemId = new ArrayList<>();
@@ -354,12 +354,7 @@ public class CreateOrder extends AppCompatActivity {
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
 
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PurchaseOrder</string>
+    <string name="app_name">Purchase Order</string>
     <string name="create_order">Create Order</string>
     <string name="order_history">Order History</string>
     <string name="log_out">Log out</string>
