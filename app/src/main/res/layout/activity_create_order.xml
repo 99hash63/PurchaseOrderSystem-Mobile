@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="2dp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -76,7 +76,7 @@
         android:id="@+id/site_spinner"
         android:layout_width="220dp"
         android:layout_height="35dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/spinner_box"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.837"
@@ -92,7 +92,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/site_spinner"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/site_spinner"
-        app:layout_constraintVertical_bias="0.875" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/requiredDate_get"
@@ -152,6 +152,14 @@
         android:textSize="10dp"
         app:layout_constraintEnd_toStartOf="@+id/releaseOrder_btn"
         app:layout_constraintTop_toBottomOf="@+id/comment_get" />
+
+    <TextView
+        android:id="@+id/orderNoDisplay"
+        android:layout_width="176dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

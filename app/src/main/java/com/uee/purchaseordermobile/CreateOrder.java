@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class CreateOrder extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -64,11 +66,14 @@ public class CreateOrder extends AppCompatActivity {
 
     FirebaseAuth fAuth;
 
-    String userID;
+    String userID,uniqueId;
 
     EditText requiredDate, comments;
 
     Button release,cancel;
+
+    TextView orderNoDisplay;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,6 +113,7 @@ public class CreateOrder extends AppCompatActivity {
         requiredDate = (EditText) findViewById(R.id.requiredDate_get);
         comments = (EditText) findViewById(R.id.comment_get);
         release = findViewById(R.id.releaseOrder_btn);
+        orderNoDisplay = findViewById(R.id.orderNoDisplay);
         cancel = findViewById(R.id.cancelOrder_btn);
 
         //item data
@@ -126,6 +132,12 @@ public class CreateOrder extends AppCompatActivity {
 
         userID = fAuth.getUid();
 
+        if(uniqueId == null) {
+            uniqueId = UUID.randomUUID().toString();
+
+            orderNoDisplay.setText("Order No: #"+uniqueId.substring(1,8) );
+        }
+
 
         //fetch all sites to display in the spinner
         db.collection("sites").get().addOnCompleteListener(task -> {
@@ -136,7 +148,7 @@ public class CreateOrder extends AppCompatActivity {
                     sitesID.add(document.getId());
                     sitesName.add(document.getString("name"));
                     sitesAddress.add(document.getString("location"));
-
+                    initializeSpinnerData();
                 }
 
             } else {
@@ -158,6 +170,10 @@ public class CreateOrder extends AppCompatActivity {
 
                 initializeSpinnerData();
 
+                createOrderAdapter = new CreateOrderAdapter(CreateOrder.this,itemId,supplierID,name,description,measurement,price);
+                recyclerView.setAdapter(createOrderAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(CreateOrder.this, LinearLayoutManager.VERTICAL, false));
+
             } else {
                 Toast.makeText(CreateOrder.this, "Error", Toast.LENGTH_SHORT).show();
             }
@@ -168,9 +184,6 @@ public class CreateOrder extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                //clear the item list
-                itemId.clear();
-
                 //get the selected item position
                 String SUPNAME = supplier_ID.get(position);
 
@@ -179,6 +192,14 @@ public class CreateOrder extends AppCompatActivity {
                         .whereEqualTo("supplierID", SUPNAME)
                         .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+
+                        //clear the item list
+                        itemId.clear();
+                        supplierID.clear();
+                        name.clear();
+                        description.clear();
+                        measurement.clear();
+                        price.clear();
 
                         for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 
@@ -189,6 +210,7 @@ public class CreateOrder extends AppCompatActivity {
                             measurement.add(document.getString("measurement"));
                             price.add(document.getDouble("price"));
                         }
+
 
 
                         createOrderAdapter = new CreateOrderAdapter(CreateOrder.this,itemId,supplierID,name,description,measurement,price);
@@ -277,6 +299,7 @@ public class CreateOrder extends AppCompatActivity {
                 //preparing order data to be pass to Database
                 Map<String, Object> OrderData = new HashMap<>();
                 OrderData.put("SM_ID", userID);
+                OrderData.put("OrderID", uniqueId.substring(1,8));
 
                 OrderData.put("site_ID", sitesID.get(selectedSitePosition));
                 OrderData.put("site_Name", sitesName.get(selectedSitePosition));

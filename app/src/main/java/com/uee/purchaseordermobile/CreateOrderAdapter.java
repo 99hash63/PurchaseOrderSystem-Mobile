@@ -20,9 +20,6 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
 
     Context context;
     List<String> id;
-    List<String> site_ID;
-    List<String> supplier_address;
-    List<String> site_address;
     List<String> supplierID;
     List<String> name;
     List<String> description;
