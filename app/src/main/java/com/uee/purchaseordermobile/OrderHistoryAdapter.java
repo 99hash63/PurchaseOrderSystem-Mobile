@@ -1,17 +1,16 @@
 package com.uee.purchaseordermobile;
 
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
+
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -20,24 +19,26 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     Context context;
     List<String> id;
-    List<String> site_ID;
-    List<String> supplier_address;
-    List<String> site_address;
-    List<String> supplierID;
-    List<String> name;
-    List<String> description;
-    List<String> measurement;
-    List<Double> price;
+    List<String> level;
+    List<String> oNum;
+    List<String> site;
+    List<String> supplier;
+    List<Double> totItems;
+    List<Double> totPrice;
+    List<String> rDate;
 
 
-    public OrderHistoryAdapter(Context ct, List<String> id, List<String> supplierID, List<String> name,  List<String> description,  List<String> measurement,  List<Double> price){
+    public OrderHistoryAdapter(Context ct, List<String> id, List<String> level,  List<String> oNum,  List<String> site,
+                               List<String> supplier,  List<Double> totItems,List<Double> totPrice,List<String> rDate){
         this.context = ct;
         this.id = id;
-        this.supplierID = supplierID;
-        this.name = name;
-        this.description = description;
-        this.measurement = measurement;
-        this.price = price;
+        this.level = level;
+        this.oNum = oNum;
+        this.site = site;
+        this.supplier = supplier;
+        this.totItems = totItems;
+        this.totPrice = totPrice;
+        this.rDate = rDate;
 
     }
 
@@ -50,12 +51,29 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.name.setText(name.get(position));
-        holder.description.setText(description.get(position));
-        holder.price.setText(price.get(position).toString());
+        holder.level.setText(level.get(position));
+        holder.oNum.setText("Order : #"+oNum.get(position));
+        holder.site.setText("Site : "+site.get(position));
+        holder.supplier.setText("Supplier : "+supplier.get(position));
+        holder.totItems.setText("Total Items : "+String.valueOf(totItems.get(position).intValue()));
+        holder.totPrice.setText("Total Price : "+totPrice.get(position).toString());
+        holder.rDate.setText("Required Date : "+rDate.get(position));
+
+        if (level.get(position).equals("Pending Approval")){
+            holder.level.setTextColor(ContextCompat.getColor(context,R.color.light_black));
+        }else if (level.get(position).equals("Approved")) {
+            holder.level.setTextColor(ContextCompat.getColor(context,R.color.green));
+        }else if (level.get(position).equals("Declined")){
+            holder.level.setTextColor(ContextCompat.getColor(context,R.color.pink_dark_red));
+        }else if (level.get(position).equals("Partially Approved")){
+            holder.level.setTextColor(ContextCompat.getColor(context,R.color.green));
+        }else {
+            holder.level.setTextColor(ContextCompat.getColor(context,R.color.yellow));
+        }
 
 
     }
@@ -68,20 +86,20 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name, description, price;
-        EditText quantity,requiredDate,comments;
-        CheckBox select;
+        TextView level,oNum,site,supplier,totItems,totPrice,rDate;
+
 
         public ViewHolder(@NonNull View items){
             super(items);
 
-            name = items.findViewById(R.id.itemCard_name);
-            description = items.findViewById(R.id.itemCard_description);
-            price = items.findViewById(R.id.itemCard_price);
-            quantity = items.findViewById(R.id.itemCard_input_quantity);
-            select = items.findViewById(R.id.itemCard_checkBox);
-            requiredDate = items.findViewById(R.id.requiredDate_get);
-            comments = items.findViewById(R.id.comment_get);
+            level = items.findViewById(R.id.order_level_display);
+            oNum = items.findViewById(R.id.order_num_display);
+            site = items.findViewById(R.id.order_site_display);
+            supplier = items.findViewById(R.id.order_supplier_display);
+            totItems = items.findViewById(R.id.order_totalItems_display);
+            totPrice = items.findViewById(R.id.order_totalPrice_display);
+            rDate = items.findViewById(R.id.order_requiredDate_display);
+
         }
 
     }

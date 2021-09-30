@@ -16,10 +16,12 @@
     <color name="soft_pink">#FF5864</color>
     <color name="material_pink">#FF404E</color>
     <color name="pink_red">#F93A75</color>
-    <color name="pink_dark_red">#ce0040</color>
+    <color name="pink_dark_red">#ff0f37</color>
     <color name="modern_blue">#1464F6</color>
     <color name="modern_blue_1">#004cd6</color>
     <color name="Gray79">#C9C9C9</color>
     <color name="Gray89">#9f9f9f</color>
+    <color name="green">#06b000</color>
+    <color name="yellow">#dbcb1d</color>
 
 </resources>

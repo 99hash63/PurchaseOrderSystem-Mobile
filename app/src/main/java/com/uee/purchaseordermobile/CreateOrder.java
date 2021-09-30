@@ -41,6 +41,7 @@ import java.util.UUID;
 
 public class CreateOrder extends AppCompatActivity {
     RecyclerView recyclerView;
+
     CreateOrderAdapter createOrderAdapter;
 
     //Item data
@@ -328,12 +329,14 @@ public class CreateOrder extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
 
+                                Toast.makeText(CreateOrder.this, "Order Created Successfully", Toast.LENGTH_SHORT).show();
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
+                                Toast.makeText(CreateOrder.this, "Order Failed", Toast.LENGTH_SHORT).show();
                             }
                         });
 
