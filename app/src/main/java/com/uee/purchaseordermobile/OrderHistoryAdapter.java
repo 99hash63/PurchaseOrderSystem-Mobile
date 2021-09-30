@@ -3,6 +3,7 @@ package com.uee.purchaseordermobile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,18 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         }else {
             holder.level.setTextColor(ContextCompat.getColor(context,R.color.yellow));
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), Receipt.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra("orderID",id.get(position));
+                v.getContext().startActivity(intent);
+
+            }
+
+        });
 
 
     }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -274,7 +275,12 @@ public class CreateOrder extends AppCompatActivity {
                     EditText quantity = (EditText) view.findViewById(R.id.itemCard_input_quantity);
                     int quantityValue = 0;
                     if (!quantity.getText().toString().isEmpty()){
-                         quantityValue = Integer.parseInt(quantity.getText().toString());
+                        try {
+                            quantityValue = Integer.parseInt(quantity.getText().toString());
+                        }catch (NumberFormatException e){
+                            Log.e("NumberFormatException",e.getMessage());
+                        }
+
                     }
 
 
@@ -283,6 +289,7 @@ public class CreateOrder extends AppCompatActivity {
 
                         Map<String, Object> docMap = new HashMap<>();
                         docMap.put("item_id",itemId.get(i));
+                        docMap.put("item_name",name.get(i));
                         docMap.put("price",price.get(i));
                         docMap.put("quantity",quantityValue);
                         docArray.add(docMap);
