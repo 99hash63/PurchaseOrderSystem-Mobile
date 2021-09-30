@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -333,6 +334,18 @@ public class CreateOrder extends AppCompatActivity {
 
                 OrderData.put("items",docArray);
 
+                if(TextUtils.isEmpty(requiredDate.getText().toString())){
+                    requiredDate.setError("Date is required");
+                    return;
+                }
+                if (docArray.size() ==0){
+                    Toast.makeText(CreateOrder.this, "Please select items", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (totalPrice < 1) {
+                    Toast.makeText(CreateOrder.this, "Invalid Quantity", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 db.collection("order")
                         .add(OrderData)
