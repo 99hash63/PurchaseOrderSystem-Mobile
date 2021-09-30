@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.ViewHolder> {
+public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder> {
 
     Context context;
     List<String> id;
@@ -30,7 +30,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
     List<Double> price;
 
 
-    public CreateOrderAdapter(Context ct, List<String> id, List<String> supplierID, List<String> name,  List<String> description,  List<String> measurement,  List<Double> price){
+    public OrderHistoryAdapter(Context ct, List<String> id, List<String> supplierID, List<String> name,  List<String> description,  List<String> measurement,  List<Double> price){
         this.context = ct;
         this.id = id;
         this.supplierID = supplierID;
@@ -44,7 +44,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_card_view, parent, false);
+        View view = inflater.inflate(R.layout.history_card_view, parent, false);
 
         return new ViewHolder(view);
     }

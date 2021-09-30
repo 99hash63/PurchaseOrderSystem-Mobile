@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,12 +27,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +60,7 @@ public class CreateOrder extends AppCompatActivity {
     ArrayList<String> supplierAddress = new ArrayList<String>();
 
 
-    Spinner sitespinner,supplierspinner;
+    Spinner siteSpinner, supplierSpinner;
 
     FirebaseAuth fAuth;
 
@@ -70,8 +70,31 @@ public class CreateOrder extends AppCompatActivity {
 
     Button release,cancel;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.order_history_menu){
+            Intent intent = new Intent(CreateOrder.this, OrderHistory.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.log_out_menu){
+
+            fAuth = FirebaseAuth.getInstance();
+            Intent intent = new Intent(CreateOrder.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            fAuth.signOut();
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
     final Calendar myCalendar = Calendar.getInstance();
+
 
 
     @Override
@@ -80,8 +103,8 @@ public class CreateOrder extends AppCompatActivity {
         setContentView(R.layout.activity_create_order);
 
         recyclerView = findViewById(R.id.recyclerview_createOrder);
-        sitespinner=(Spinner)findViewById(R.id.site_spinner);
-        supplierspinner=(Spinner)findViewById(R.id.supplier_spinner);
+        siteSpinner =(Spinner)findViewById(R.id.site_spinner);
+        supplierSpinner =(Spinner)findViewById(R.id.supplier_spinner);
         requiredDate = (EditText) findViewById(R.id.requiredDate_get);
         comments = (EditText) findViewById(R.id.comment_get);
         release = findViewById(R.id.releaseOrder_btn);
@@ -116,8 +139,6 @@ public class CreateOrder extends AppCompatActivity {
 
                 }
 
-
-
             } else {
                 Toast.makeText(CreateOrder.this, "Error", Toast.LENGTH_SHORT).show();
             }
@@ -143,7 +164,7 @@ public class CreateOrder extends AppCompatActivity {
         });
 
         //change item list when user select an supplier and display data according to the supplier
-        supplierspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        supplierSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -245,27 +266,36 @@ public class CreateOrder extends AppCompatActivity {
 
                 }
                 //get site and supplier array position
-                int selectedSitePosition = sitespinner.getSelectedItemPosition();
-                int selectedSupplierPosition =supplierspinner.getSelectedItemPosition();
+                int selectedSitePosition = siteSpinner.getSelectedItemPosition();
+                int selectedSupplierPosition = supplierSpinner.getSelectedItemPosition();
 
                 //get current date
                 Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault());
                 String formattedDate = df.format(c);
 
                 //preparing order data to be pass to Database
                 Map<String, Object> OrderData = new HashMap<>();
-                OrderData.put("site_ID", sitesID.get(selectedSitePosition));
                 OrderData.put("SM_ID", userID);
-                OrderData.put("supplierID", supplier_ID.get(selectedSupplierPosition));
-                OrderData.put("supplier_address", supplierAddress.get(selectedSupplierPosition));
+
+                OrderData.put("site_ID", sitesID.get(selectedSitePosition));
+                OrderData.put("site_Name", sitesName.get(selectedSitePosition));
                 OrderData.put("site_address", sitesAddress.get(selectedSitePosition));
+
+                OrderData.put("supplierID", supplier_ID.get(selectedSupplierPosition));
+                OrderData.put("supplierName", supplierName.get(selectedSupplierPosition));
+                OrderData.put("supplier_address", supplierAddress.get(selectedSupplierPosition));
+
                 OrderData.put("Purchase_date", formattedDate);
                 OrderData.put("Required_date", requiredDate.getText().toString());
+
                 OrderData.put("order_status", "Pending Approval");
                 OrderData.put("level", "Pending Approval");
+
                 OrderData.put("total_price", totalPrice);
+
                 OrderData.put("comments", comments.getText().toString());
+
                 OrderData.put("items",docArray);
 
 
@@ -301,11 +331,11 @@ public class CreateOrder extends AppCompatActivity {
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter( CreateOrder.this, android.R.layout.simple_spinner_dropdown_item, sitesName);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sitespinner.setAdapter(dataAdapter);
+        siteSpinner.setAdapter(dataAdapter);
 
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter( CreateOrder.this, android.R.layout.simple_spinner_dropdown_item, supplierName);
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        supplierspinner.setAdapter(dataAdapter2);
+        supplierSpinner.setAdapter(dataAdapter2);
 
     }
 
