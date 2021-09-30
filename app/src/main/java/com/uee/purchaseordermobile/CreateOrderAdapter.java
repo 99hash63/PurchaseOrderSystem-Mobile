@@ -53,7 +53,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
         holder.name.setText(name.get(position));
         holder.description.setText(description.get(position));
         holder.price.setText(price.get(position).toString());
-
+        holder.measurement_display.setText(measurement.get(position).toString());
 
     }
 
@@ -65,7 +65,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name, description, price;
+        TextView name, description, price,measurement_display;
         EditText quantity,requiredDate,comments;
         CheckBox select;
 
@@ -79,6 +79,7 @@ public class CreateOrderAdapter extends RecyclerView.Adapter<CreateOrderAdapter.
             select = items.findViewById(R.id.itemCard_checkBox);
             requiredDate = items.findViewById(R.id.requiredDate_get);
             comments = items.findViewById(R.id.comment_get);
+            measurement_display = items.findViewById(R.id.measurement_display);
         }
 
     }

@@ -51,7 +51,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     }
 
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "DefaultLocale", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -60,7 +60,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.site.setText("Site : "+site.get(position));
         holder.supplier.setText("Supplier : "+supplier.get(position));
         holder.totItems.setText("Total Items : "+String.valueOf(totItems.get(position).intValue()));
-        holder.totPrice.setText("Total Price : "+totPrice.get(position).toString());
+        holder.totPrice.setText("Total Price : LKR "+String.format("%.2f",totPrice.get(position)));
         holder.rDate.setText("Required Date : "+rDate.get(position));
 
         if (level.get(position).equals("Pending Approval")){

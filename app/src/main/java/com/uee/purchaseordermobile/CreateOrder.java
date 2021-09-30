@@ -272,7 +272,11 @@ public class CreateOrder extends AppCompatActivity {
                     View view = recyclerView.getChildAt(i);
                     CheckBox checkBox = (CheckBox) view.findViewById(R.id.itemCard_checkBox);
                     EditText quantity = (EditText) view.findViewById(R.id.itemCard_input_quantity);
-                    int quantityValue = Integer.parseInt(quantity.getText().toString());
+                    int quantityValue = 0;
+                    if (!quantity.getText().toString().isEmpty()){
+                         quantityValue = Integer.parseInt(quantity.getText().toString());
+                    }
+
 
 
                     if(checkBox.isChecked()){

@@ -53,6 +53,17 @@
             card_view:layout_constraintTop_toBottomOf="@+id/itemCard_description" />
 
         <TextView
+            android:id="@+id/measurement_display"
+            android:layout_width="68dp"
+            android:layout_height="21dp"
+
+            android:layout_marginStart="3dp"
+            android:textSize="14dp"
+            card_view:layout_constraintBottom_toBottomOf="@+id/itemCard_input_quantity"
+            card_view:layout_constraintStart_toEndOf="@+id/itemCard_input_quantity"
+            card_view:layout_constraintTop_toTopOf="@+id/itemCard_input_quantity" />
+
+        <TextView
             android:id="@+id/itemCard_price"
             android:layout_width="64dp"
             android:layout_height="19dp"
@@ -70,6 +81,7 @@
             android:background="@drawable/spinner_box"
             android:hint="Enter quantity needed"
             android:inputType="number"
+            android:textAlignment="textEnd"
             android:padding="8dp"
             android:textSize="12dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
